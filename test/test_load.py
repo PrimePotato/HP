@@ -1,9 +1,7 @@
 import logging
-import sqlite3
 from datetime import datetime as dt
 
 import pandas as pd
-import re
 
 from house_prices.models import CsvData
 
@@ -22,9 +20,8 @@ def test_read_csv():
     from sqlalchemy import create_engine
     engine = create_engine(r'sqlite:///../db.sqlite3', echo=False)
     header = [f.name for f in CsvData._meta.get_fields()]
-    chunk_size = 1000
+    chunk_size = 100000
     i = 0
-
     for chunk in pd.read_csv(r'C:\Users\naked\dev\hp\data\pp-complete.csv',
                              header=None,
                              chunksize=chunk_size,
