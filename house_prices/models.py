@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
+from dbview.models import DbView
 
 
 class CsvData(models.Model):
@@ -69,3 +70,12 @@ class Transaction(models.Model):
     standard = models.CharField(max_length=1, choices=[('A', 'Standard'), ('B', 'Repo')])
     record = models.CharField(max_length=1, choices=[('A', 'Add'), ('D', 'Delete'), ('C', 'Change')], default='A')
     Address = models.ForeignKey(Address, on_delete=models.CASCADE, default=None)
+
+
+class UniquePostcodes(DbView):
+    postcode = models.CharField(primary_key=True, max_length=10, blank=True)
+
+    @classmethod
+    def view(cls):
+        qs = CsvData.objects.values('postcode').distinct()
+        return str(qs.query)

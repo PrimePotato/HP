@@ -20,6 +20,8 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'CsvData', views.CsvViewSet)
+router.register(r'UniquePostcodes', views.UniquePostcodesViewSet, basename='UniquePostcodes')
+router.register(r'LoadCsvData', views.LoadCsvDataViewSet, basename='LoadCsvData')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
